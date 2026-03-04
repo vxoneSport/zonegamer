@@ -1986,7 +1986,7 @@
             parallax.style.transform = `translate(${translateX}px, ${translateY}px)`;
         }
 
-        // ===== STATISTIQUES DEPUIS LE BOT (URL CORRIGÉE) =====
+        // ===== STATISTIQUES DEPUIS LE BOT =====
         async function loadBotStats() {
             try {
                 // Récupérer le nombre de membres
@@ -2141,7 +2141,7 @@
                         updateQuote();
                         setInterval(updateQuote, 6000);
                         loadBotStats();
-                        setInterval(loadBotStats, 30000);
+                        setInterval(loadBotStats, 30000); // Recharge toutes les 30 secondes
                     }, 500);
                 }
             }, 120);
