@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>ZoneGamer – Communauté E-sport</title>
     <link rel="icon" type="image/png" href="Zonegamer.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1287,76 +1286,6 @@
             animation: superBorderPulse 10s infinite ease-in-out;
         }
 
-        /* Styles pour les stats du bot */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .stat-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            text-align: center;
-            border: 2px solid rgba(255, 48, 48, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-red);
-            box-shadow: 0 0 20px rgba(255, 48, 48, 0.3);
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            color: var(--primary-red);
-            font-weight: bold;
-            animation: superColorPulse 10s infinite ease-in-out;
-        }
-        
-        .top-xp-container {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-            border: 2px solid rgba(255, 48, 48, 0.2);
-        }
-        
-        .top-xp-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .top-xp-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .top-xp-item:last-child {
-            border-bottom: none;
-        }
-        
-        .top-xp-rank {
-            color: var(--primary-red);
-            font-weight: bold;
-            margin-right: 1rem;
-        }
-        
-        .top-xp-name {
-            flex: 1;
-        }
-        
-        .top-xp-value {
-            color: var(--gold);
-            font-weight: bold;
-        }
-
         @media (max-width: 968px) {
             .events-container {
                 grid-template-columns: 1fr;
@@ -1385,9 +1314,6 @@
             .team-grid { grid-template-columns: 1fr; }
             .calendar-days { gap: 3px; }
             .calendar-day { font-size: 0.9rem; }
-            .stats-container {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -1468,39 +1394,6 @@
                 Plonge dans le monde de ZoneGamer, la plateforme dédiée à tous les passionnés de jeux vidéo, qu'ils soient joueurs occasionnels ou compétiteurs acharnés. Ici, le gaming n'est pas juste un passe-temps, c'est un véritable mode de vie.<br><br>
                 Découvre un espace multijeux unique où se mêlent divertissement, compétition et communauté. Que tu sois fan de FPS, de jeux de stratégie, de simulation, d'aventure ou d'e-sport, tu trouveras ton bonheur parmi une sélection de titres variés, des classiques incontournables aux nouveautés les plus attendues.
             </p>
-
-            <!-- STATISTIQUES DEPUIS LE BOT -->
-            <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-number" id="stat-membres">...</div>
-                    <div>Membres Discord</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="stat-total-xp">...</div>
-                    <div>XP total</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="stat-niveau-moyen">...</div>
-                    <div>Niveau moyen</div>
-                </div>
-            </div>
-
-            <!-- TOP XP -->
-            <div class="top-xp-container">
-                <h3 style="color: var(--primary-red); margin-bottom: 1rem;">🏆 Top 10 XP</h3>
-                <div id="top-xp-content" style="text-align: left;">
-                    <div style="text-align: center; color: var(--gray-text);">Chargement des données...</div>
-                </div>
-            </div>
-
-            <!-- CITATIONS GAMING QUI DÉFILENT (SANS AUTEUR) -->
-            <div class="quote-container" id="quoteContainer">
-                <div>
-                    <i class="fas fa-quote-left" style="color: var(--primary-red); margin-right: 10px;"></i>
-                    <span id="quoteText">Chargement...</span>
-                    <i class="fas fa-quote-right" style="color: var(--primary-red); margin-left: 10px;"></i>
-                </div>
-            </div>
 
             <!-- COMPTEUR (seulement jeux disponibles) -->
             <div style="display: flex; justify-content: center; margin: 3rem 0;">
@@ -1986,51 +1879,6 @@
             parallax.style.transform = `translate(${translateX}px, ${translateY}px)`;
         }
 
-        // ===== STATISTIQUES DEPUIS LE BOT =====
-        async function loadBotStats() {
-            try {
-                // Récupérer le nombre de membres
-                const membresRes = await fetch('http://65.109.100.181:8080/api/membres');
-                const membresData = await membresRes.json();
-                document.getElementById('stat-membres').textContent = membresData.count || '0';
-                
-                // Récupérer le top XP
-                const topRes = await fetch('http://65.109.100.181:8080/api/top-xp');
-                const topData = await topRes.json();
-                
-                if (topData.length > 0) {
-                    let totalXp = 0;
-                    let totalNiveau = 0;
-                    let html = '';
-                    
-                    topData.forEach((m, index) => {
-                        totalXp += m.xp;
-                        totalNiveau += m.niveau;
-                        
-                        html += `
-                            <div class="top-xp-item">
-                                <span class="top-xp-rank">#${index + 1}</span>
-                                <span class="top-xp-name">${m.pseudo}</span>
-                                <span class="top-xp-value">Niv. ${m.niveau} (${m.xp} XP)</span>
-                            </div>
-                        `;
-                    });
-                    
-                    document.getElementById('top-xp-content').innerHTML = html;
-                    document.getElementById('stat-total-xp').textContent = totalXp;
-                    document.getElementById('stat-niveau-moyen').textContent = (totalNiveau / topData.length).toFixed(1);
-                } else {
-                    document.getElementById('top-xp-content').innerHTML = '<div style="text-align: center; color: var(--gray-text);">Aucune donnée pour le moment</div>';
-                }
-            } catch (error) {
-                console.error('Erreur chargement stats:', error);
-                document.getElementById('stat-membres').textContent = '?';
-                document.getElementById('stat-total-xp').textContent = '?';
-                document.getElementById('stat-niveau-moyen').textContent = '?';
-                document.getElementById('top-xp-content').innerHTML = '<div style="text-align: center; color: var(--gray-text);">Serveur de stats hors ligne</div>';
-            }
-        }
-
         // ===== FONCTIONS EXISTANTES =====
         function showPage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2140,8 +1988,7 @@
                         updateVisitorCounter();
                         updateQuote();
                         setInterval(updateQuote, 6000);
-                        loadBotStats();
-                        setInterval(loadBotStats, 30000); // Recharge toutes les 30 secondes
+                        // Plus d'appel API
                     }, 500);
                 }
             }, 120);
