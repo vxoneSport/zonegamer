@@ -1,0 +1,2157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title>ZoneGamer – Communauté E-sport</title>
+    <link rel="icon" type="image/png" href="Zonegamer.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== TON STYLE COMPLET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #ff3030;
+            --dark-red: #770000;
+            --dark-bg: #0c0c0c;
+            --medium-bg: #1a1a1a;
+            --light-text: #ffffff;
+            --gray-text: #cccccc;
+            --blue-accent: #00aaff;
+            --green-accent: #00ff88;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --twitch-purple: #9146ff;
+            --tiktok-black: #010101;
+            --youtube-red: #ff0000;
+            --violet: #9b59b6;
+            --orange: #e67e22;
+            --rose: #e84393;
+            --turquoise: #1abc9c;
+            --jaune: #f1c40f;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--medium-bg) 50%, var(--dark-bg) 100%);
+            color: var(--light-text);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== EFFET DE PARALLAXE ===== */
+        .parallax-bg {
+            position: fixed;
+            top: -20px;
+            left: -20px;
+            width: calc(100% + 40px);
+            height: calc(100% + 40px);
+            background: radial-gradient(circle at 30% 40%, rgba(255, 48, 48, 0.15) 0%, transparent 30%),
+                        radial-gradient(circle at 70% 60%, rgba(155, 89, 182, 0.15) 0%, transparent 35%),
+                        radial-gradient(circle at 20% 80%, rgba(230, 126, 34, 0.15) 0%, transparent 30%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 170, 255, 0.15) 0%, transparent 35%),
+                        radial-gradient(circle at 50% 50%, rgba(255, 48, 48, 0.1) 0%, transparent 50%);
+            z-index: -2;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        /* ===== BOUTON DISCORD QUI BRILLE ===== */
+        @keyframes glowPulse {
+            0% { box-shadow: 0 0 20px #5865F2, 0 0 40px #5865F2; }
+            50% { box-shadow: 0 0 40px #5865F2, 0 0 80px #5865F2; }
+            100% { box-shadow: 0 0 20px #5865F2, 0 0 40px #5865F2; }
+        }
+        
+        .nav-link[href*="discord.gg"] {
+            animation: glowPulse 2s infinite ease-in-out !important;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .nav-link[href*="discord.gg"]:hover {
+            animation: glowPulse 1s infinite ease-in-out !important;
+            transform: scale(1.05);
+        }
+
+        /* ===== ANIMATION DE COULEURS SUPER RICHE ===== */
+        @keyframes superColorPulse {
+            0% { color: #ff3030; text-shadow: 0 0 15px #ff3030; }
+            12% { color: #ff6b6b; text-shadow: 0 0 20px #ff6b6b; }
+            25% { color: #9b59b6; text-shadow: 0 0 25px #9b59b6; }
+            37% { color: #e84393; text-shadow: 0 0 20px #e84393; }
+            50% { color: #00aaff; text-shadow: 0 0 30px #00aaff; }
+            62% { color: #1abc9c; text-shadow: 0 0 25px #1abc9c; }
+            75% { color: #e67e22; text-shadow: 0 0 25px #e67e22; }
+            87% { color: #f1c40f; text-shadow: 0 0 20px #f1c40f; }
+            100% { color: #ff3030; text-shadow: 0 0 15px #ff3030; }
+        }
+
+        @keyframes superBorderPulse {
+            0% { border-color: #ff3030; box-shadow: 0 0 20px #ff3030; }
+            12% { border-color: #ff6b6b; box-shadow: 0 0 25px #ff6b6b; }
+            25% { border-color: #9b59b6; box-shadow: 0 0 30px #9b59b6; }
+            37% { border-color: #e84393; box-shadow: 0 0 25px #e84393; }
+            50% { border-color: #00aaff; box-shadow: 0 0 35px #00aaff; }
+            62% { border-color: #1abc9c; box-shadow: 0 0 30px #1abc9c; }
+            75% { border-color: #e67e22; box-shadow: 0 0 30px #e67e22; }
+            87% { border-color: #f1c40f; box-shadow: 0 0 25px #f1c40f; }
+            100% { border-color: #ff3030; box-shadow: 0 0 20px #ff3030; }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            animation: superColorPulse 10s infinite ease-in-out, typing 4s steps(30) 1s 1 normal both, blink 1s infinite;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid var(--primary-red);
+            display: inline-block;
+            font-weight: 800;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            position: relative;
+            animation: superColorPulse 10s infinite ease-in-out;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary-red);
+            border-radius: 2px;
+            animation: superBorderPulse 10s infinite ease-in-out;
+        }
+
+        .game-card {
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,.05);
+            border-radius: 15px;
+            border: 2px solid rgba(255,0,0,.2);
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+            animation: superBorderPulse 3s infinite ease-in-out;
+        }
+
+        .member {
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,.05);
+            border-radius: 15px;
+            border: 2px solid rgba(255,0,0,.2);
+            padding: 2rem 1.5rem;
+            text-align: center;
+        }
+        
+        .member:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+            animation: superBorderPulse 3s infinite ease-in-out;
+        }
+
+        .news-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            background: rgba(255,255,255,.05);
+            border: 2px solid rgba(255,0,0,.2);
+            padding: 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .news-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-red);
+            animation: superBorderPulse 3s infinite ease-in-out;
+        }
+
+        .page { display: none; min-height: 100vh; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; position: relative; z-index: 1; }
+        .page.active { display: block; opacity: 1; transform: translateY(0); }
+
+        .header {
+            background: rgba(12, 12, 12, 0.98);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1001;
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid var(--primary-red);
+            box-shadow: 0 5px 40px rgba(255, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            animation: superBorderPulse 10s infinite ease-in-out;
+        }
+        .header.scrolled { padding: 0.7rem 0; backdrop-filter: blur(25px); box-shadow: 0 10px 50px rgba(255, 0, 0, 0.4); }
+        .nav-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        .logo { display: flex; align-items: center; gap: 1rem; font-size: 1.8rem; font-weight: bold; color: var(--primary-red); cursor: pointer; transition: all 0.3s ease; text-decoration: none; }
+        .logo:hover { transform: scale(1.05); text-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+        .logo-img { width: 50px; height: 50px; border-radius: 12px; border: 2px solid var(--primary-red); box-shadow: 0 0 25px rgba(255, 0, 0, 0.6); transition: all 0.3s ease; }
+        .logo:hover .logo-img { transform: rotate(5deg); box-shadow: 0 0 35px rgba(255, 0, 0, 0.8); }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-link { color: var(--light-text); text-decoration: none; transition: all 0.3s ease; font-weight: 600; cursor: pointer; padding: 0.8rem 1.5rem; border-radius: 10px; text-transform: uppercase; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+        .nav-link:hover, .nav-link.active { color: var(--primary-red); background: rgba(255, 0, 0, 0.15); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3); }
+        .mobile-menu-btn { display: none; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; padding: 0.5rem; }
+
+        /* ===== PRELOADER ===== */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #1a0000, #000000);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease;
+        }
+        
+        .preloader-ring {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .preloader-ring div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: var(--primary-red);
+            border-bottom-color: var(--primary-red);
+            animation: spinLoader 1.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+        
+        .preloader-ring div:nth-child(2) {
+            width: 70%;
+            height: 70%;
+            border-top-color: #ff8800;
+            border-bottom-color: #ff8800;
+            animation: spinLoader 2.2s reverse cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+        
+        .preloader-ring div:nth-child(3) {
+            width: 40%;
+            height: 40%;
+            border-top-color: #ffff00;
+            border-bottom-color: #ffff00;
+            animation: spinLoader 2.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+        
+        @keyframes spinLoader {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        #preloader img {
+            width: 90px;
+            height: 90px;
+            border-radius: 15px;
+            z-index: 5;
+            filter: drop-shadow(0 0 30px #ff4000);
+            animation: pulseGlow 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px #ff0000); transform: scale(1); }
+            50% { filter: drop-shadow(0 0 50px #ff6600); transform: scale(1.05); }
+        }
+        
+        #loadingText {
+            margin-top: 2rem;
+            color: #ff6600;
+            font-size: 1.4rem;
+            font-weight: bold;
+            animation: textPulse 1.5s infinite;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 15px rgba(255, 102, 0, 0.5);
+        }
+        
+        @keyframes textPulse {
+            0%, 100% { opacity: 0.8; text-shadow: 0 0 10px rgba(255, 102, 0, 0.5); }
+            50% { opacity: 1; text-shadow: 0 0 30px rgba(255, 102, 0, 0.9); }
+        }
+        
+        #loadingProgress {
+            width: 250px;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            margin-top: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(255,0,0,0.3);
+        }
+        
+        #loadingBar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #ff0000, #ff6600, #ffaa00, #ff6600, #ff0000);
+            background-size: 200% 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+            animation: gradientMove 2s linear infinite;
+        }
+        
+        @keyframes gradientMove {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 200% 0%; }
+        }
+
+        .banner {
+            width: 100%;
+            height: 550px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 80px;
+        }
+        .banner-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(255,0,0,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255,100,0,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(255,50,0,0.15) 0%, transparent 50%);
+            animation: pulseBackground 8s ease-in-out infinite;
+        }
+        @keyframes pulseBackground { 0%,100%{opacity:0.3;} 50%{opacity:0.7;} }
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        .game-slide {
+            width: 180px;
+            height: 180px;
+            border-radius: 25px;
+            border: 3px solid var(--primary-red);
+            box-shadow: 0 0 35px #ff0000;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, transform 1s ease;
+            object-fit: contain;
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+        .game-slide.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .slide-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+        .slide-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .slide-indicator.active {
+            background: var(--primary-red);
+            box-shadow: 0 0 10px var(--primary-red);
+            transform: scale(1.2);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        @keyframes typing { from { width: 0; } to { width: 100%; } }
+        @keyframes blink { 50% { border-color: transparent; } }
+        .hero-sub {
+            max-width: 900px;
+            margin: 2rem auto;
+            color: var(--gray-text);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: justify;
+            background: rgba(0,0,0,0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-red);
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: linear-gradient(45deg, var(--primary-red), var(--dark-red));
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 35px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px var(--primary-red);
+            transition: all 0.3s ease;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        .hero-btn:hover {
+            transform: scale(1.05);
+            background: linear-gradient(45deg, #ff6600, #aa0000);
+            box-shadow: 0 0 30px var(--primary-red);
+        }
+        .hero-btn.secondary {
+            background: linear-gradient(45deg, #333, #111);
+            box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        }
+
+        .games-page {
+            padding: 120px 2rem 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            color: var(--primary-red);
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(255,0,0,0.5);
+            position: relative;
+        }
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary-red);
+            border-radius: 2px;
+        }
+        
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+        
+        .game-card {
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,.05);
+            border-radius: 15px;
+            border: 2px solid rgba(255,0,0,.2);
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255,0,0,.4);
+            border-color: var(--primary-red);
+        }
+        
+        .game-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+            background: rgba(0,0,0,0.5);
+            border-radius: 15px;
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .game-card:hover img {
+            transform: scale(1.1) rotate(5deg);
+            filter: drop-shadow(0 0 15px var(--primary-red));
+        }
+        
+        .game-card h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .game-card:nth-child(1) h3 { color: var(--violet); } /* Fortnite */
+        .game-card:nth-child(2) h3 { color: var(--orange); } /* Valorant */
+        .game-card:nth-child(3) h3 { color: var(--turquoise); } /* Minecraft */
+        .game-card:nth-child(4) h3 { color: var(--rose); } /* Roblox */
+        .game-card:nth-child(5) h3 { color: var(--orange); } /* GTA 5 */
+        .game-card:nth-child(6) h3 { color: var(--blue-accent); } /* Rocket League */
+        .game-card:nth-child(7) h3 { color: var(--violet); } /* League of Legends */
+        .game-card:nth-child(8) h3 { color: var(--rose); } /* Fall Guys */
+        .game-card:nth-child(9) h3 { color: var(--orange); } /* Apex Legends */
+        .game-card:nth-child(10) h3 { color: var(--turquoise); } /* Genshin Impact */
+        .game-card:nth-child(11) h3 { color: var(--violet); } /* Clash Royale */
+        .game-card:nth-child(12) h3 { color: var(--orange); } /* Clash of Clans */
+        .game-card:nth-child(13) h3 { color: var(--rose); } /* Brawl Stars */
+        .game-card:nth-child(14) h3 { color: var(--turquoise); } /* Call of Duty Mobile */
+        
+        .game-card p {
+            color: var(--gray-text);
+            margin-bottom: 1rem;
+            min-height: 60px;
+        }
+        
+        .platform-badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+        
+        .platform-badge-game {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .platform-badge-game i {
+            font-size: 0.9rem;
+        }
+        
+        .platform-badge-game.pc {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            border-color: #3498db;
+        }
+        
+        .platform-badge-game.mobile {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+            border-color: #2ecc71;
+        }
+        
+        .platform-badge-game.both {
+            background: linear-gradient(45deg, var(--violet), var(--rose));
+            border-color: var(--violet);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2002;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+            overflow-y: auto;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .modal-content {
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 25px;
+            width: 90%;
+            max-width: 900px;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            border: 2px solid var(--primary-red);
+            overflow: hidden;
+            animation: slideIn 0.3s ease;
+            position: relative;
+            z-index: 2003;
+            animation: superBorderPulse 10s infinite ease-in-out;
+        }
+        @keyframes slideIn { from { transform: translateY(-50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 20px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.5);
+        }
+        .close:hover {
+            color: var(--primary-red);
+            background: rgba(255, 68, 68, 0.2);
+            transform: rotate(90deg);
+        }
+
+        .actualites-page {
+            padding: 120px 2rem 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .events-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 3rem auto;
+            max-width: 1200px;
+            align-items: stretch;
+        }
+        
+        .calendar-container {
+            background: rgba(20, 20, 30, 0.8);
+            border-radius: 30px;
+            padding: 2rem;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            height: 100%;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+        
+        .calendar-month {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--orange), var(--violet), var(--rose));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(155, 89, 182, 0.5);
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .calendar-nav button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--orange);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-nav button:hover {
+            background: var(--orange);
+            transform: scale(1.1);
+        }
+        
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: bold;
+            color: var(--orange);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+        
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        
+        .calendar-day:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--orange);
+        }
+        
+        .calendar-day.has-event {
+            background: linear-gradient(145deg, rgba(230, 126, 34, 0.2), rgba(155, 89, 182, 0.2));
+            border-color: var(--orange);
+        }
+        
+        .calendar-day.today {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 20px rgba(255, 48, 48, 0.5);
+        }
+        
+        .event-indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--orange);
+            position: absolute;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .lock-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            border: 3px solid var(--gold);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .lock-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+            animation: lockPulse 2s infinite;
+        }
+        
+        @keyframes lockPulse {
+            0%, 100% { transform: scale(1); text-shadow: 0 0 20px gold; }
+            50% { transform: scale(1.1); text-shadow: 0 0 40px gold; }
+        }
+        
+        .lock-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--gold), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3rem;
+        }
+        
+        .lock-subtext {
+            color: var(--gray-text);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .calendar-container .hero-btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+        }
+        .news-date {
+            color: var(--primary-red);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .news-card h3 {
+            color: var(--primary-red);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        .news-card p {
+            color: var(--gray-text);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        .news-tag {
+            display: inline-block;
+            background: rgba(255,0,0,0.2);
+            color: var(--primary-red);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .news-card .hero-btn {
+            align-self: flex-start;
+        }
+
+        .team-page {
+            padding: 120px 2rem 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+        
+        .role-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin: 3rem 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .role-title.fondateurs { color: var(--gold); }
+        .role-title.fondateurs i { color: var(--gold); }
+        .role-title.admins { color: var(--violet); }
+        .role-title.admins i { color: var(--violet); }
+        .role-title.modos { color: var(--turquoise); }
+        .role-title.modos i { color: var(--turquoise); }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+        
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-red), var(--dark-red));
+            margin: 0 auto 1.5rem;
+            border: 3px solid rgba(255,255,255,0.3);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .member:hover .member-avatar {
+            transform: scale(1.05);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 30px rgba(255,0,0,0.5);
+        }
+        
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .member-role {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .member-role.fondateur { color: var(--gold); }
+        .member-role.admin { color: var(--violet); }
+        .member-role.modo { color: var(--turquoise); }
+        
+        .member h3 {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 2004;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+            overflow: hidden;
+        }
+        .image-modal-content {
+            margin: 0 auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
+            border: 3px solid var(--primary-red);
+            animation: zoomIn 0.3s ease;
+            cursor: pointer;
+            object-fit: contain;
+        }
+        @keyframes zoomIn { from { transform: translate(-50%, -50%) scale(0.7); opacity: 0; } to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+        .image-modal-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            font-size: 1.2rem;
+            border-top: 2px solid var(--primary-red);
+        }
+        .image-close {
+            position: absolute;
+            right: 25px;
+            top: 15px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            background: rgba(255, 0, 0, 0.3);
+        }
+        .image-close:hover {
+            color: var(--primary-red);
+            background: rgba(255, 0, 0, 0.5);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .rules-page {
+            padding: 120px 2rem 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        .rules-title {
+            font-size: 2.8rem;
+            color: var(--blue-accent);
+            text-shadow: 0 0 15px #0077ff;
+            margin-bottom: 3rem;
+            padding-bottom: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .rules-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: var(--blue-accent);
+            border-radius: 2px;
+        }
+
+        .rule-section {
+            background: rgba(10,10,20,.9);
+            border: 2px solid #0020ff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,100,.5);
+            padding: 2rem 2.5rem;
+            margin-bottom: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .rule-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,150,.6);
+        }
+
+        .rule-section h3 {
+            color: #3399ff;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .rule-card {
+            background: rgba(30,30,30,.9);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .rule-card:hover {
+            transform: translateX(10px);
+        }
+
+        .rule-card.red {
+            border-left-color: var(--primary-red);
+            background: rgba(50,0,0,.7);
+        }
+
+        .rule-card.blue {
+            border-left-color: var(--blue-accent);
+            background: rgba(0,0,30,.7);
+        }
+
+        .rule-card b {
+            display: block;
+            color: #fff;
+            margin-bottom: .5rem;
+            font-size: 1.1rem;
+        }
+
+        .rule-card p {
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .rule-section.end {
+            text-align: center;
+            border: 2px solid var(--green-accent);
+            box-shadow: 0 0 30px rgba(0,255,150,.4);
+            background: rgba(0,30,0,.7);
+        }
+
+        .rule-section.end h3 {
+            color: var(--green-accent);
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px #00ff66;
+            justify-content: center;
+        }
+
+        .rule-section.end .end-text {
+            margin-top: 1.5rem;
+            color: #b0ffb0;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .rules-return {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .inscription-modal { max-width: 500px; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-red);
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            resize: vertical;
+        }
+        .form-group select option {
+            background: #1a1a1a;
+            color: white;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 1.5rem 0;
+        }
+        .checkbox-group input { width: auto; }
+
+        .footer {
+            background: rgba(0,0,0,0.95);
+            padding: 4rem 1rem 2rem;
+            text-align: center;
+            border-top: 3px solid var(--primary-red);
+            margin-top: 4rem;
+            position: relative;
+            z-index: 1;
+            animation: superBorderPulse 10s infinite ease-in-out;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: left;
+            margin-bottom: 3rem;
+        }
+        .footer-logo { display: flex; flex-direction: column; align-items: flex-start; }
+        .footer img {
+            width: 100px;
+            height: 100px;
+            border-radius: 15px;
+            border: 3px solid var(--primary-red);
+            margin-bottom: 1.5rem;
+        }
+        .footer-links h4, .footer-social h4 {
+            color: var(--primary-red);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+        .footer-links a {
+            display: block;
+            color: var(--gray-text);
+            text-decoration: none;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+        }
+        .footer-links a:hover {
+            color: var(--primary-red);
+            transform: translateX(10px);
+        }
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--gray-text);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .social-icon:hover {
+            background: var(--primary-red);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255,0,0,0.3);
+        }
+        .copyright { padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: var(--gray-text); }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            z-index: 100;
+        }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-red);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            z-index: 10000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .toast.show { transform: translateX(0); }
+
+        /* Compteur de visiteurs */
+        .visitor-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(255, 48, 48, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 8px 15px;
+            border-radius: 50px;
+            border: 2px solid var(--primary-red);
+            font-size: 0.9rem;
+            z-index: 1000;
+            color: var(--light-text);
+            animation: superBorderPulse 10s infinite ease-in-out;
+        }
+
+        /* Zone de citation (sans auteur) */
+        .quote-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-red);
+            text-align: center;
+            font-size: 1.2rem;
+            font-style: italic;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+            animation: superBorderPulse 10s infinite ease-in-out;
+        }
+
+        /* Styles pour les stats du bot */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 2px solid rgba(255, 48, 48, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-red);
+            box-shadow: 0 0 20px rgba(255, 48, 48, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            color: var(--primary-red);
+            font-weight: bold;
+            animation: superColorPulse 10s infinite ease-in-out;
+        }
+        
+        .top-xp-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border: 2px solid rgba(255, 48, 48, 0.2);
+        }
+        
+        .top-xp-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .top-xp-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .top-xp-item:last-child {
+            border-bottom: none;
+        }
+        
+        .top-xp-rank {
+            color: var(--primary-red);
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        
+        .top-xp-name {
+            flex: 1;
+        }
+        
+        .top-xp-value {
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        @media (max-width: 968px) {
+            .events-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: rgba(0,0,0,0.95);
+                flex-direction: column;
+                padding: 2rem;
+                transition: left 0.3s ease;
+                z-index: 999;
+            }
+            .nav-links.active { left: 0; }
+            .hero-title { font-size: 2rem; white-space: normal; border-right: none; animation: none; }
+            .banner { height: 400px; }
+            .game-slide { width: 140px; height: 140px; }
+            .games-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; }
+            .calendar-days { gap: 3px; }
+            .calendar-day { font-size: 0.9rem; }
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- EFFET DE PARALLAXE -->
+    <div class="parallax-bg" id="parallaxBg"></div>
+
+    <!-- MODAL IMAGE -->
+    <div id="imageModal" class="image-modal">
+        <span class="image-close" onclick="closeImageModal()">&times;</span>
+        <img class="image-modal-content" id="expandedImage">
+        <div id="imageCaption" class="image-modal-caption"></div>
+    </div>
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="preloader-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <img src="Zonegamer.png" alt="ZoneGamer">
+        </div>
+        <div id="loadingText">Chargement de l'univers ZoneGamer...</div>
+        <div id="loadingProgress"><div id="loadingBar"></div></div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <nav class="nav-container">
+            <div class="logo" onclick="showPage('accueil')">
+                <img src="Zonegamer.png" alt="ZoneGamer" class="logo-img">
+                <span>ZoneGamer</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
+                <div class="nav-link active" onclick="showPage('accueil')"><i class="fas fa-home"></i> Accueil</div>
+                <div class="nav-link" onclick="showPage('jeux')"><i class="fas fa-gamepad"></i> Jeux</div>
+                <div class="nav-link" onclick="showPage('actu')"><i class="fas fa-calendar-alt"></i> Événements</div>
+                <div class="nav-link" onclick="showPage('equipe')"><i class="fas fa-users"></i> Équipe</div>
+                <div class="nav-link" onclick="showPage('reglement')"><i class="fas fa-book"></i> Règlement</div>
+                <div class="nav-link" onclick="showPage('contact')"><i class="fas fa-envelope"></i> Contact</div>
+                <div class="nav-link" onclick="showPage('faq')"><i class="fas fa-question-circle"></i> FAQ</div>
+                <a href="https://discord.gg/vfQQGh2k4A" target="_blank" class="nav-link" style="background: linear-gradient(45deg, #5865F2, #404EED);">
+                    <i class="fab fa-discord"></i> Discord
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- BANNIÈRE -->
+    <div class="banner">
+        <div class="banner-background"></div>
+        <div class="banner-content">
+            <img src="image/brawl-stars.png" class="game-slide active" alt="Brawl Stars">
+            <img src="image/call of duty.png" class="game-slide" alt="Call of Duty">
+            <img src="image/Clash-Royale.png" class="game-slide" alt="Clash Royale">
+            <img src="image/clashofclans.png" class="game-slide" alt="Clash of Clans">
+            <img src="image/fortnite.png" class="game-slide" alt="Fortnite">
+            <img src="image/gta5.png" class="game-slide" alt="GTA 5">
+            <img src="image/logo minecraft.png" class="game-slide" alt="Minecraft">
+            <img src="image/roblox.png" class="game-slide" alt="Roblox">
+            <img src="image/rocket league.png" class="game-slide" alt="Rocket League">
+            <img src="image/valorant.png" class="game-slide" alt="Valorant">
+            <img src="league of legends.png" class="game-slide" alt="League of Legends">
+            <img src="stemble gauys.png" class="game-slide" alt="Fall Guys">
+            <img src="apex.pnj" class="game-slide" alt="Apex Legends">
+            <img src="genshin impact.png" class="game-slide" alt="Genshin Impact">
+        </div>
+        <div class="slide-indicators" id="slideIndicators"></div>
+    </div>
+
+    <!-- ACCUEIL -->
+    <div id="accueil" class="page active">
+        <section class="hero">
+            <h1 class="hero-title">Bienvenue sur ZoneGamer 🔥</h1>
+            <p class="hero-sub">
+                🎮 Bienvenue sur ZoneGamer – L'univers du gaming sans limites !<br><br>
+                Plonge dans le monde de ZoneGamer, la plateforme dédiée à tous les passionnés de jeux vidéo, qu'ils soient joueurs occasionnels ou compétiteurs acharnés. Ici, le gaming n'est pas juste un passe-temps, c'est un véritable mode de vie.<br><br>
+                Découvre un espace multijeux unique où se mêlent divertissement, compétition et communauté. Que tu sois fan de FPS, de jeux de stratégie, de simulation, d'aventure ou d'e-sport, tu trouveras ton bonheur parmi une sélection de titres variés, des classiques incontournables aux nouveautés les plus attendues.
+            </p>
+
+            <!-- STATISTIQUES DEPUIS LE BOT -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-membres">...</div>
+                    <div>Membres Discord</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-total-xp">...</div>
+                    <div>XP total</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stat-niveau-moyen">...</div>
+                    <div>Niveau moyen</div>
+                </div>
+            </div>
+
+            <!-- TOP XP -->
+            <div class="top-xp-container">
+                <h3 style="color: var(--primary-red); margin-bottom: 1rem;">🏆 Top 10 XP</h3>
+                <div id="top-xp-content" style="text-align: left;">
+                    <div style="text-align: center; color: var(--gray-text);">Chargement des données...</div>
+                </div>
+            </div>
+
+            <!-- CITATIONS GAMING QUI DÉFILENT (SANS AUTEUR) -->
+            <div class="quote-container" id="quoteContainer">
+                <div>
+                    <i class="fas fa-quote-left" style="color: var(--primary-red); margin-right: 10px;"></i>
+                    <span id="quoteText">Chargement...</span>
+                    <i class="fas fa-quote-right" style="color: var(--primary-red); margin-left: 10px;"></i>
+                </div>
+            </div>
+
+            <!-- COMPTEUR (seulement jeux disponibles) -->
+            <div style="display: flex; justify-content: center; margin: 3rem 0;">
+                <div style="text-align: center;">
+                    <div style="font-size: 3rem; color: var(--primary-red); font-weight: bold; animation: superColorPulse 10s infinite ease-in-out;">14</div>
+                    <div style="color: var(--gray-text);">Jeux disponibles</div>
+                </div>
+            </div>
+
+            <div class="hero-buttons">
+                <a href="https://discord.gg/vfQQGh2k4A" target="_blank" class="hero-btn"><i class="fab fa-discord"></i> Rejoindre le Discord</a>
+                <a class="hero-btn secondary" onclick="showPage('reglement')"><i class="fas fa-book"></i> Règlement</a>
+                <a class="hero-btn secondary" onclick="showPage('jeux')"><i class="fas fa-gamepad"></i> Jeux</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- JEUX -->
+    <div id="jeux" class="page">
+        <section class="games-page">
+            <h2 class="page-title">🎮 Nos Jeux</h2>
+            <div class="games-grid">
+                <!-- Fortnite -->
+                <div class="game-card"><img src="image/fortnite.png" alt="Fortnite"><h3>Fortnite</h3><p>Battle Royale mythique avec construction.</p><div class="platform-badge-container"><span class="platform-badge-game pc"><i class="fas fa-desktop"></i> PC</span><span class="platform-badge-game mobile"><i class="fas fa-mobile-alt"></i> Mobile</span></div></div>
+                <div class="game-card"><img src="image/valorant.png" alt="Valorant"><h3>Valorant</h3><p>FPS tactique compétitif de Riot Games.</p><div class="platform-badge-container"><span class="platform-badge-game pc"><i class="fas fa-desktop"></i> PC</span></div></div>
+                <div class="game-card"><img src="image/logo minecraft.png" alt="Minecraft"><h3>Minecraft</h3><p>Jeu de création et d'aventure sandbox.</p><div class="platform-badge-container"><span class="platform-badge-game pc"><i class="fas fa-desktop"></i> PC</span><span class="platform-badge-game mobile"><i class="fas fa-mobile-alt"></i> Mobile</span></div></div>
+                <div class="game-card"><img src="image/roblox.png" alt="Roblox"><h3>Roblox</h3><p>Plateforme de jeux et création.</p><div class="platform-badge-container"><span class="platform-badge-game pc"><i class="fas fa-desktop"></i> PC</span><span class="platform-badge-game mobile"><i class="fas fa-mobile-alt"></i> Mobile</span></div></div>
+                <div class="game-card"><img src="image/gta5.png" alt="GTA 5"><h3>GTA 5</h3><p>Action-aventure en monde ouvert.</p><div class="platform-badge-container"><span class="platform-badge-game pc"><i class="fas fa-desktop"></i> PC</span></div></div>
+                <div class="game-card"><img src="image/rocket league.png" alt="Rocket League"><h3>Rocket League</h3><p>Football avec des voitures rocket !</p><div class="platform-badge-container"><span class="platform-badge-game pc"><i class="fas fa-desktop"></i> PC</span><span class="platform-badge-game mobile"><i class="fas fa-mobile-alt"></i> Mobile</span></div></div>
+                <div class="game-card"><img src="league of legends.png" alt="League of Legends"><h3>League of Legends</h3><p>MOBA légendaire, des millions de joueurs.</p><div class="platform-badge-container"><span class="platform-badge-game pc"><i class="fas fa-desktop"></i> PC</span></div></div>
+                <div class="game-card"><img src="stemble gauys.png" alt="Fall Guys"><h3>Fall Guys</h3><p>Jeu de bataille royale délirant.</p><div class="platform-badge-container"><span class="platform-badge-game pc"><i class="fas fa-desktop"></i> PC</span><span class="platform-badge-game mobile"><i class="fas fa-mobile-alt"></i> Mobile</span></div></div>
+                <div class="game-card"><img src="apex.pnj" alt="Apex Legends"><h3>Apex Legends</h3><p>Battle Royale tactique.</p><div class="platform-badge-container"><span class="platform-badge-game pc"><i class="fas fa-desktop"></i> PC</span><span class="platform-badge-game mobile"><i class="fas fa-mobile-alt"></i> Mobile</span></div></div>
+                <div class="game-card"><img src="genshin impact.png" alt="Genshin Impact"><h3>Genshin Impact</h3><p>RPG en monde ouvert magnifique.</p><div class="platform-badge-container"><span class="platform-badge-game pc"><i class="fas fa-desktop"></i> PC</span><span class="platform-badge-game mobile"><i class="fas fa-mobile-alt"></i> Mobile</span></div></div>
+                <div class="game-card"><img src="image/Clash-Royale.png" alt="Clash Royale"><h3>Clash Royale</h3><p>Stratégie en temps réel.</p><div class="platform-badge-container"><span class="platform-badge-game mobile"><i class="fas fa-mobile-alt"></i> Mobile</span></div></div>
+                <div class="game-card"><img src="image/clashofclans.png" alt="Clash of Clans"><h3>Clash of Clans</h3><p>Construis ton village et combats.</p><div class="platform-badge-container"><span class="platform-badge-game mobile"><i class="fas fa-mobile-alt"></i> Mobile</span></div></div>
+                <div class="game-card"><img src="image/brawl-stars.png" alt="Brawl Stars"><h3>Brawl Stars</h3><p>Combats 3v3 fun et explosifs !</p><div class="platform-badge-container"><span class="platform-badge-game mobile"><i class="fas fa-mobile-alt"></i> Mobile</span></div></div>
+                <div class="game-card"><img src="image/call of duty.png" alt="Call of Duty Mobile"><h3>Call of Duty Mobile</h3><p>FPS mobile ultime !</p><div class="platform-badge-container"><span class="platform-badge-game mobile"><i class="fas fa-mobile-alt"></i> Mobile</span></div></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ÉVÉNEMENTS -->
+    <div id="actu" class="page">
+        <section class="actualites-page">
+            <h2 class="page-title">📰 Événements & Actualités</h2>
+            
+            <div class="events-container">
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <div class="calendar-month">Mars 2025</div>
+                        <div class="calendar-nav">
+                            <button><i class="fas fa-chevron-left"></i></button>
+                            <button><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-weekdays">
+                        <div>Lun</div><div>Mar</div><div>Mer</div><div>Jeu</div><div>Ven</div><div>Sam</div><div>Dim</div>
+                    </div>
+                    
+                    <div class="calendar-days">
+                        <div class="calendar-day">24</div><div class="calendar-day">25</div><div class="calendar-day">26</div><div class="calendar-day">27</div><div class="calendar-day">28</div>
+                        <div class="calendar-day has-event">1 <span class="event-indicator"></span></div><div class="calendar-day">2</div><div class="calendar-day">3</div><div class="calendar-day">4</div><div class="calendar-day">5</div><div class="calendar-day">6</div>
+                        <div class="calendar-day has-event">7 <span class="event-indicator"></span></div><div class="calendar-day">8</div><div class="calendar-day">9</div><div class="calendar-day">10</div><div class="calendar-day">11</div><div class="calendar-day">12</div><div class="calendar-day">13</div>
+                        <div class="calendar-day has-event">14 <span class="event-indicator"></span></div><div class="calendar-day">15</div><div class="calendar-day">16</div><div class="calendar-day">17</div><div class="calendar-day">18</div><div class="calendar-day">19</div><div class="calendar-day">20</div>
+                        <div class="calendar-day has-event">21 <span class="event-indicator"></span></div><div class="calendar-day">22</div><div class="calendar-day">23</div><div class="calendar-day">24</div><div class="calendar-day">25</div><div class="calendar-day">26</div><div class="calendar-day">27</div>
+                        <div class="calendar-day">28</div><div class="calendar-day">29</div><div class="calendar-day">30</div><div class="calendar-day">31</div><div class="calendar-day">1</div><div class="calendar-day">2</div><div class="calendar-day">3</div><div class="calendar-day">4</div><div class="calendar-day">5</div><div class="calendar-day">6</div>
+                    </div>
+                    
+                    <div class="lock-overlay">
+                        <i class="fas fa-lock lock-icon"></i>
+                        <div class="lock-text">Calendrier verrouillé</div>
+                        <div class="lock-subtext">Rejoins le Discord pour débloquer</div>
+                        <a href="https://discord.gg/vfQQGh2k4A" target="_blank" class="hero-btn" style="margin-top: 0.5rem; padding: 8px 20px; font-size: 0.9rem; background: linear-gradient(45deg, var(--gold), var(--orange));"><i class="fab fa-discord"></i> Rejoindre</a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <img src="soire.film.png" alt="Soirée communautaire">
+                    <div class="news-content">
+                        <div class="news-date"><i class="far fa-calendar"></i> Chaque vendredi 21h00</div>
+                        <h3>🎉 Soirée Film & Chill</h3>
+                        <p>Rejoins-nous chaque vendredi soir pour regarder un film en communauté !</p>
+                        <p><strong>Cette semaine:</strong> Film d'action<br><strong>Plateforme:</strong> Discord (salon vocal)<br><strong>Participation:</strong> Gratuite</p>
+                        <div><span class="news-tag">Communauté</span><span class="news-tag">Film</span><span class="news-tag">Social</span></div>
+                        <button class="hero-btn" style="margin-top: 1rem; background: linear-gradient(45deg, var(--violet), var(--rose));" onclick="openInscriptionModal()"><i class="fas fa-ticket-alt"></i> S'inscrire</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rules-return">
+                <a class="hero-btn secondary" onclick="showPage('accueil')"><i class="fas fa-home"></i> Retour à l'accueil</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL INSCRIPTION -->
+    <div id="modal-inscription" class="modal">
+        <div class="modal-content inscription-modal">
+            <span class="close" onclick="closeModal('modal-inscription')">&times;</span>
+            <div class="modal-header">
+                <h2>🎟️ Inscription à la Soirée</h2>
+                <p class="modal-subtitle">Vendredi soir - ZoneGamer</p>
+            </div>
+            <div class="modal-body">
+                <form id="inscriptionForm">
+                    <div class="form-group">
+                        <label for="discordPseudo"><i class="fab fa-discord"></i> Pseudo Discord *</label>
+                        <input type="text" id="discordPseudo" placeholder="Exemple: Joueur#1234" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="commentaires"><i class="fas fa-comment"></i> Commentaires</label>
+                        <textarea id="commentaires" placeholder="Vos suggestions..."></textarea>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="membreServeur" required>
+                        <label for="membreServeur">Je suis membre du serveur Discord *</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="seraPresent" required>
+                        <label for="seraPresent">Je serai présent *</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="accepteRegles" required>
+                        <label for="accepteRegles">J'accepte le règlement *</label>
+                    </div>
+                    <button type="submit" class="hero-btn" style="width: 100%; background: linear-gradient(45deg, var(--violet), var(--rose));">Envoyer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL RECRUTEMENT -->
+    <div id="modal-recruitment" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <span class="close" onclick="closeModal('modal-recruitment')">&times;</span>
+            <div class="modal-header">
+                <h2>👥 Recrutement Staff</h2>
+                <p class="modal-subtitle">Rejoins notre équipe</p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3>Postes disponibles</h3>
+                    <div class="platforms-grid">
+                        <div class="platform-item" onclick="alert('Contacte un admin sur Discord')">
+                            <span class="platform-icon">🛡️</span>
+                            <div class="platform-name">Modérateur</div>
+                        </div>
+                        <div class="platform-item" onclick="alert('Contacte un admin sur Discord')">
+                            <span class="platform-icon">🎮</span>
+                            <div class="platform-name">Organisateur</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ÉQUIPE (sans Laylko et ace) -->
+    <div id="equipe" class="page">
+        <section class="team-page">
+            <h2 class="page-title">👥 Notre Équipe</h2>
+            
+            <!-- FONDATEURS -->
+            <h3 class="role-title fondateurs"><i class="fas fa-crown"></i> Fondateurs</h3>
+            <div class="team-grid">
+                <div class="member">
+                    <div class="member-avatar"><img src="kevin.png" alt="122ATROX"></div>
+                    <div class="member-role fondateur">Fondateur</div>
+                    <h3>122ATROX</h3>
+                </div>
+                <div class="member">
+                    <div class="member-avatar"><img src="daylox.png" alt="Daylox"></div>
+                    <div class="member-role fondateur">Co-fondateur</div>
+                    <h3>Vl-ツDaylox</h3>
+                </div>
+            </div>
+            
+            <!-- ADMINISTRATEURS (sans Laylko) -->
+            <h3 class="role-title admins"><i class="fas fa-user-shield"></i> Administrateurs</h3>
+            <div class="team-grid">
+                <div class="member">
+                    <div class="member-avatar"><img src="image.modo.png" alt="GGHDOMI"></div>
+                    <div class="member-role admin">Admin</div>
+                    <h3>ZG|GGHDOMI</h3>
+                </div>
+                <div class="member">
+                    <div class="member-avatar"><img src="nax.png" alt="Nax"></div>
+                    <div class="member-role admin">Admin</div>
+                    <h3>𝚉𝙶|𝙽𝚊𝚡</h3>
+                </div>
+            </div>
+            
+            <!-- MODÉRATEURS (sans ace) -->
+            <h3 class="role-title modos"><i class="fas fa-user-check"></i> Modérateurs</h3>
+            <div class="team-grid">
+                <div class="member">
+                    <div class="member-avatar"><img src="raven.png" alt="Reaver"></div>
+                    <div class="member-role modo">Modo</div>
+                    <h3>Reaver</h3>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- RÈGLEMENT COMPLET -->
+    <div id="reglement" class="page">
+        <section class="rules-page">
+            <h2 class="rules-title">📜 RÈGLEMENT DU SERVEUR <span>ZoneGamer</span></h2>
+
+            <div class="rule-section intro">
+                <h3><i class="fas fa-door-open"></i> Bienvenue sur ZoneGamer</h3>
+                <p>Un serveur multi-jeux où respect et bonne ambiance sont essentiels. Ce règlement a pour but d'assurer le bien-être de tous les membres.</p>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-handshake"></i> 1️⃣ Respect</h3>
+                <div class="rule-card red">
+                    <b><i class="fas fa-ban"></i> Respect obligatoire</b>
+                    <p>Le respect est obligatoire entre tous les membres, quel que soit leur niveau, expérience ou statut.</p>
+                </div>
+                <div class="rule-card red">
+                    <b><i class="fas fa-exclamation-triangle"></i> Comportement interdit</b>
+                    <p>Aucune insulte, provocation, moquerie, harcèlement ou propos discriminatoire n'est toléré.</p>
+                </div>
+                <div class="rule-card blue">
+                    <b><i class="fas fa-comments"></i> Règlement des conflits</b>
+                    <p>Les conflits se règlent en privé avec l'aide du staff si nécessaire, pas sur le serveur public.</p>
+                </div>
+                <div class="rule-card red">
+                    <b><i class="fas fa-gavel"></i> Sanctions</b>
+                    <p>Tout comportement toxique sera sanctionné selon la gravité de l'infraction.</p>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-comments"></i> 2️⃣ Communication</h3>
+                <div class="rule-card blue">
+                    <b><i class="fas fa-user-check"></i> Politesse et clarté</b>
+                    <p>Restez polis et clairs dans vos échanges. Utilisez les salons appropriés pour chaque sujet.</p>
+                </div>
+                <div class="rule-card red">
+                    <b><i class="fas fa-stop-circle"></i> Spam interdit</b>
+                    <p>Pas de spam, flood, troll ni message inutile. Évitez les majuscules excessives (CAPS LOCK).</p>
+                </div>
+                <div class="rule-card blue">
+                    <b><i class="fas fa-microphone"></i> Communication vocale</b>
+                    <p>En vocal : respectez la parole des autres et évitez les bruits de fond gênants.</p>
+                </div>
+                <div class="rule-card red">
+                    <b><i class="fas fa-ad"></i> Publicité interdite</b>
+                    <p>Aucune publicité ou lien externe sans l'accord préalable du staff. Pas d'autopromotion.</p>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-gamepad"></i> 3️⃣ Jeux</h3>
+                <div class="rule-card red">
+                    <b><i class="fas fa-user-secret"></i> Triche interdite</b>
+                    <p>Pas de triche, glitch, hack ou logiciel interdit. Le fair-play est obligatoire.</p>
+                </div>
+                <div class="rule-card blue">
+                    <b><i class="fas fa-folder"></i> Organisation des salons</b>
+                    <p>Respectez les salons dédiés à chaque jeu. Utilisez les bons canaux pour vos discussions.</p>
+                </div>
+                <div class="rule-card blue">
+                    <b><i class="fas fa-award"></i> Fair-play</b>
+                    <p>Jouez fair-play et gardez une bonne ambiance même en cas de défaite. Pas de ragequit.</p>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-id-card"></i> 4️⃣ Pseudos et avatars</h3>
+                <div class="rule-card blue">
+                    <b><i class="fas fa-signature"></i> Pseudos appropriés</b>
+                    <p>Les pseudos doivent être corrects, lisibles et non offensants. Pas de caractères spéciaux excessifs.</p>
+                </div>
+                <div class="rule-card red">
+                    <b><i class="fas fa-eye-slash"></i> Contenu interdit</b>
+                    <p>Interdits : contenus à caractère sexuel, violent, politique, religieux ou haineux.</p>
+                </div>
+                <div class="rule-card blue">
+                    <b><i class="fas fa-user-edit"></i> Modification par le staff</b>
+                    <p>Le staff peut demander un changement de pseudo/avatar si nécessaire pour le respect des règles.</p>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-balance-scale"></i> 5️⃣ Sanctions</h3>
+                <div class="rule-card red">
+                    <b><i class="fas fa-exclamation-circle"></i> Échelle des sanctions</b>
+                    <p>Avertissement, mute temporaire, kick ou bannissement selon la gravité et la récidive.</p>
+                </div>
+                <div class="rule-card blue">
+                    <b><i class="fas fa-user-shield"></i> Respect des décisions</b>
+                    <p>Les décisions du staff sont finales et doivent être respectées. Les appels se font en privé.</p>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-flag"></i> 6️⃣ Signalement</h3>
+                <div class="rule-card blue">
+                    <b><i class="fas fa-headset"></i> Contact du staff</b>
+                    <p>En cas de problème, contactez un membre du staff en message privé ou utilisez le salon dédié.</p>
+                </div>
+                <div class="rule-card blue">
+                    <b><i class="fas fa-peace"></i> Ne pas se faire justice soi-même</b>
+                    <p>Ne vous faites pas justice vous-même. Signalez les problèmes au staff qui s'en occupera.</p>
+                </div>
+            </div>
+
+            <div class="rule-section">
+                <h3><i class="fas fa-check-circle"></i> 7️⃣ Acceptation</h3>
+                <div class="rule-card blue">
+                    <b><i class="fas fa-thumbs-up"></i> Acceptation du règlement</b>
+                    <p>En restant sur le serveur, vous acceptez ce règlement et vous engagez à le respecter.</p>
+                </div>
+                <div class="rule-card red">
+                    <b><i class="fas fa-times-circle"></i> Conséquences</b>
+                    <p>Le non-respect du règlement entraînera des sanctions pouvant aller jusqu'au bannissement définitif.</p>
+                </div>
+            </div>
+
+            <div class="rule-section end">
+                <h3><i class="fas fa-gamepad"></i> 🎮 Amusez-vous bien !</h3>
+                <p class="end-text">Profitez du jeu dans le respect et la bonne humeur !<br>
+                <span>L'équipe ZoneGamer vous souhaite de belles parties gaming et de formidables rencontres.</span></p>
+            </div>
+
+            <div class="rules-return">
+                <a class="hero-btn" onclick="showPage('accueil')"><i class="fas fa-home"></i> 🏠 Retour à l'accueil</a>
+                <a href="https://discord.gg/vfQQGh2k4A" target="_blank" class="hero-btn secondary" style="margin-left: 1rem;"><i class="fab fa-discord"></i> Rejoindre maintenant</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- PAGE CONTACT -->
+    <div id="contact" class="page">
+        <section style="padding: 120px 2rem; max-width: 800px; margin: 0 auto;">
+            <h2 class="page-title">📬 Nous contacter</h2>
+            
+            <div style="background: rgba(255,255,255,0.05); border-radius: 15px; padding: 2rem;">
+                <p style="text-align: center; margin-bottom: 2rem;">
+                    Une question ? Envoie-nous un email directement !
+                </p>
+                
+                <div style="text-align: center;">
+                    <a href="mailto:zonegamerofficiel@gmail.com?subject=Contact%20depuis%20le%20site" class="hero-btn" style="font-size: 1.2rem; padding: 1rem 2rem;">
+                        <i class="fas fa-envelope"></i> zonegamerofficiel@gmail.com
+                    </a>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <p>Ou rejoins-nous directement sur Discord :</p>
+                    <div style="margin-top: 1rem;">
+                        <a href="https://discord.gg/vfQQGh2k4A" class="hero-btn" style="background: #5865F2;">
+                            <i class="fab fa-discord"></i> Discord
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- PAGE FAQ -->
+    <div id="faq" class="page">
+        <section style="padding: 120px 2rem; max-width: 900px; margin: 0 auto;">
+            <h2 class="page-title">❓ Foire aux questions</h2>
+            
+            <div style="background: rgba(255,255,255,0.05); border-radius: 15px; padding: 2rem;">
+                
+                <div style="margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.5rem;">
+                    <h3 style="color: var(--primary-red);">🤔 Comment rejoindre le serveur Discord ?</h3>
+                    <p style="color: var(--gray-text);">Clique simplement sur le bouton "Rejoindre le Discord" dans le menu ou sur la page d'accueil. Le lien est également disponible dans le footer.</p>
+                </div>
+                
+                <div style="margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.5rem;">
+                    <h3 style="color: var(--primary-red);">🎮 Quels jeux sont disponibles ?</h3>
+                    <p style="color: var(--gray-text);">Retrouve tous nos jeux sur la page "Jeux" ! Fortnite, Valorant, Minecraft, Rocket League, League of Legends, GTA 5, et bien d'autres encore.</p>
+                </div>
+                
+                <div style="margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.5rem;">
+                    <h3 style="color: var(--primary-red);">📅 Comment participer aux événements ?</h3>
+                    <p style="color: var(--gray-text);">Inscris-toi via le formulaire sur la page "Événements". Les places sont limitées, alors n'hésite pas à t'inscrire rapidement !</p>
+                </div>
+                
+                <div style="margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.5rem;">
+                    <h3 style="color: var(--primary-red);">👑 Comment devenir staff ?</h3>
+                    <p style="color: var(--gray-text);">Contacte un admin sur Discord. Les recrutements sont ouverts régulièrement, surveille les annonces !</p>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary-red);">❌ Un problème sur le site ?</h3>
+                    <p style="color: var(--gray-text);">Contacte-nous via la page Contact ou signale-le sur Discord, nous corrigerons ça au plus vite.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="Zonegamer.png" alt="ZoneGamer">
+                <h3>ZoneGamer</h3>
+                <p>Communauté E-sport Multiplateforme</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <a onclick="showPage('accueil')">Accueil</a>
+                <a onclick="showPage('jeux')">Jeux</a>
+                <a onclick="showPage('actu')">Événements</a>
+                <a onclick="showPage('equipe')">Équipe</a>
+                <a onclick="showPage('reglement')">Règlement</a>
+                <a onclick="showPage('contact')">Contact</a>
+                <a onclick="showPage('faq')">FAQ</a>
+            </div>
+            <div class="footer-social">
+                <h4>Nous suivre</h4>
+                <div class="social-icons">
+                    <a href="https://discord.gg/vfQQGh2k4A" class="social-icon"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">© 2025 ZoneGamer. Tous droits réservés.</div>
+    </footer>
+
+    <!-- BACK TO TOP -->
+    <div class="back-to-top" id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></div>
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ===== COMPTEUR DE VISITEURS =====
+        function updateVisitorCounter() {
+            let visits = localStorage.getItem('zonegamer_visits');
+            if (visits) {
+                visits = parseInt(visits) + 1;
+            } else {
+                visits = 1;
+            }
+            localStorage.setItem('zonegamer_visits', visits);
+            
+            if (!document.querySelector('.visitor-counter')) {
+                const counterDiv = document.createElement('div');
+                counterDiv.className = 'visitor-counter';
+                counterDiv.innerHTML = `<i class="fas fa-eye"></i> ${visits} visites`;
+                document.body.appendChild(counterDiv);
+            } else {
+                document.querySelector('.visitor-counter').innerHTML = `<i class="fas fa-eye"></i> ${visits} visites`;
+            }
+        }
+
+        // ===== CITATIONS GAMING (SANS AUTEUR) =====
+        const quotes = [
+            "Le jeu, c'est sérieux !",
+            "Game over ? Non, continue !",
+            "Un bon joueur gagne, un grand joueur apprend",
+            "Dans le jeu comme dans la vie, la persévérance paie",
+            "Respawn is part of the game",
+            "Le gaming n'est pas un passe-temps, c'est un mode de vie",
+            "Noob un jour, pro toujours",
+            "GG WP",
+            "La team avant tout",
+            "Push push push !"
+        ];
+
+        let currentQuoteIndex = 0;
+
+        function updateQuote() {
+            document.getElementById('quoteText').textContent = quotes[currentQuoteIndex];
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        }
+
+        // ===== EFFET DE PARALLAXE =====
+        function updateParallax() {
+            const parallax = document.getElementById('parallaxBg');
+            if (!parallax) return;
+            
+            const scrollY = window.scrollY;
+            const translateY = scrollY * 0.2;
+            const translateX = scrollY * 0.1;
+            
+            parallax.style.transform = `translate(${translateX}px, ${translateY}px)`;
+        }
+
+        // ===== STATISTIQUES DEPUIS LE BOT (URL CORRIGÉE) =====
+        async function loadBotStats() {
+            try {
+                // Récupérer le nombre de membres
+                const membresRes = await fetch('http://65.109.100.181:8080/api/membres');
+                const membresData = await membresRes.json();
+                document.getElementById('stat-membres').textContent = membresData.count || '0';
+                
+                // Récupérer le top XP
+                const topRes = await fetch('http://65.109.100.181:8080/api/top-xp');
+                const topData = await topRes.json();
+                
+                if (topData.length > 0) {
+                    let totalXp = 0;
+                    let totalNiveau = 0;
+                    let html = '';
+                    
+                    topData.forEach((m, index) => {
+                        totalXp += m.xp;
+                        totalNiveau += m.niveau;
+                        
+                        html += `
+                            <div class="top-xp-item">
+                                <span class="top-xp-rank">#${index + 1}</span>
+                                <span class="top-xp-name">${m.pseudo}</span>
+                                <span class="top-xp-value">Niv. ${m.niveau} (${m.xp} XP)</span>
+                            </div>
+                        `;
+                    });
+                    
+                    document.getElementById('top-xp-content').innerHTML = html;
+                    document.getElementById('stat-total-xp').textContent = totalXp;
+                    document.getElementById('stat-niveau-moyen').textContent = (totalNiveau / topData.length).toFixed(1);
+                } else {
+                    document.getElementById('top-xp-content').innerHTML = '<div style="text-align: center; color: var(--gray-text);">Aucune donnée pour le moment</div>';
+                }
+            } catch (error) {
+                console.error('Erreur chargement stats:', error);
+                document.getElementById('stat-membres').textContent = '?';
+                document.getElementById('stat-total-xp').textContent = '?';
+                document.getElementById('stat-niveau-moyen').textContent = '?';
+                document.getElementById('top-xp-content').innerHTML = '<div style="text-align: center; color: var(--gray-text);">Serveur de stats hors ligne</div>';
+            }
+        }
+
+        // ===== FONCTIONS EXISTANTES =====
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const link = document.querySelector(`.nav-link[onclick*="${id}"]`);
+            if(link) link.classList.add('active');
+            document.getElementById('navLinks').classList.remove('active');
+            document.getElementById('mobileMenuBtn').innerHTML = '<i class="fas fa-bars"></i>';
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Diaporama
+        const slides = document.querySelectorAll('.game-slide');
+        let current = 0;
+        const indicators = document.getElementById('slideIndicators');
+        
+        slides.forEach((_, i) => {
+            const ind = document.createElement('div');
+            ind.className = 'slide-indicator';
+            if(i === 0) ind.classList.add('active');
+            ind.onclick = () => {
+                slides[current].classList.remove('active');
+                document.querySelectorAll('.slide-indicator')[current].classList.remove('active');
+                current = i;
+                slides[current].classList.add('active');
+                document.querySelectorAll('.slide-indicator')[current].classList.add('active');
+            };
+            indicators.appendChild(ind);
+        });
+        
+        setInterval(() => {
+            slides[current].classList.remove('active');
+            document.querySelectorAll('.slide-indicator')[current].classList.remove('active');
+            current = (current + 1) % slides.length;
+            slides[current].classList.add('active');
+            document.querySelectorAll('.slide-indicator')[current].classList.add('active');
+        }, 3000);
+
+        // Modals
+        function openInscriptionModal() { 
+            document.getElementById('modal-inscription').style.display = 'block'; 
+            document.body.style.overflow = 'hidden'; 
+        }
+        
+        function closeModal(modalId) { 
+            if(modalId) document.getElementById(modalId).style.display = 'none';
+            else document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function closeImageModal() { 
+            document.getElementById('imageModal').style.display = 'none'; 
+            document.body.style.overflow = 'auto'; 
+        }
+
+        // Menu mobile
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+            document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 300);
+            updateParallax();
+        });
+        
+        function scrollToTop() { 
+            window.scrollTo({top: 0, behavior: 'smooth'}); 
+        }
+
+        // Toast
+        function showToast(m) { 
+            const t = document.getElementById('toast'); 
+            t.textContent = m; 
+            t.classList.add('show'); 
+            setTimeout(() => t.classList.remove('show'), 3000); 
+        }
+
+        // Formulaire inscription
+        document.getElementById('inscriptionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const pseudo = document.getElementById('discordPseudo').value;
+            if(!pseudo) { showToast('❌ Pseudo requis'); return; }
+            showToast('🎉 Inscription envoyée !');
+            closeModal('modal-inscription');
+        });
+
+        // ===== INITIALISATION =====
+        window.addEventListener('load', () => {
+            let progress = 0;
+            const bar = document.getElementById('loadingBar');
+            const interval = setInterval(() => {
+                progress += Math.random() * 12;
+                if(progress > 100) progress = 100;
+                bar.style.width = progress + '%';
+                if(progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('preloader').style.opacity = '0';
+                        setTimeout(() => document.getElementById('preloader').style.display = 'none', 800);
+                        
+                        updateVisitorCounter();
+                        updateQuote();
+                        setInterval(updateQuote, 6000);
+                        loadBotStats();
+                        setInterval(loadBotStats, 30000);
+                    }, 500);
+                }
+            }, 120);
+        });
+
+        window.showPage = showPage;
+        window.openInscriptionModal = openInscriptionModal;
+        window.closeModal = closeModal;
+        window.closeImageModal = closeImageModal;
+        window.scrollToTop = scrollToTop;
+    </script>
+</body>
+</html>
