@@ -1251,23 +1251,9 @@
         }
         .toast.show { transform: translateX(0); }
 
-        /* Compteur de visiteurs */
-        .visitor-counter {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background: rgba(255, 48, 48, 0.2);
-            backdrop-filter: blur(10px);
-            padding: 8px 15px;
-            border-radius: 50px;
-            border: 2px solid var(--primary-red);
-            font-size: 0.9rem;
-            z-index: 1000;
-            color: var(--light-text);
-            animation: superBorderPulse 10s infinite ease-in-out;
-        }
+        /* Compteur de visiteurs (supprimé) */
+        /* Supprimé */
 
-        /* Zone de citation (sans auteur) */
         .quote-container {
             max-width: 800px;
             margin: 2rem auto;
@@ -1284,6 +1270,23 @@
             justify-content: center;
             transition: all 0.5s ease;
             animation: superBorderPulse 10s infinite ease-in-out;
+        }
+
+        .member-counter {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin: 2rem 0;
+            padding: 1rem 2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50px;
+            display: inline-block;
+            border: 2px solid var(--primary-red);
+            animation: superBorderPulse 5s infinite;
+        }
+        
+        .member-counter i {
+            color: var(--primary-red);
+            margin-right: 10px;
         }
 
         @media (max-width: 968px) {
@@ -1389,13 +1392,28 @@
     <div id="accueil" class="page active">
         <section class="hero">
             <h1 class="hero-title">Bienvenue sur ZoneGamer 🔥</h1>
+            
+            <!-- COMPTEUR 99 MEMBRES -->
+            <div class="member-counter">
+                <i class="fas fa-users"></i> 99 membres
+            </div>
+            
             <p class="hero-sub">
                 🎮 Bienvenue sur ZoneGamer – L'univers du gaming sans limites !<br><br>
                 Plonge dans le monde de ZoneGamer, la plateforme dédiée à tous les passionnés de jeux vidéo, qu'ils soient joueurs occasionnels ou compétiteurs acharnés. Ici, le gaming n'est pas juste un passe-temps, c'est un véritable mode de vie.<br><br>
                 Découvre un espace multijeux unique où se mêlent divertissement, compétition et communauté. Que tu sois fan de FPS, de jeux de stratégie, de simulation, d'aventure ou d'e-sport, tu trouveras ton bonheur parmi une sélection de titres variés, des classiques incontournables aux nouveautés les plus attendues.
             </p>
 
-            <!-- COMPTEUR (seulement jeux disponibles) -->
+            <!-- CITATIONS GAMING QUI DÉFILENT -->
+            <div class="quote-container" id="quoteContainer">
+                <div>
+                    <i class="fas fa-quote-left" style="color: var(--primary-red); margin-right: 10px;"></i>
+                    <span id="quoteText">Chargement...</span>
+                    <i class="fas fa-quote-right" style="color: var(--primary-red); margin-left: 10px;"></i>
+                </div>
+            </div>
+
+            <!-- COMPTEUR DE JEUX -->
             <div style="display: flex; justify-content: center; margin: 3rem 0;">
                 <div style="text-align: center;">
                     <div style="font-size: 3rem; color: var(--primary-red); font-weight: bold; animation: superColorPulse 10s infinite ease-in-out;">14</div>
@@ -1479,7 +1497,6 @@
                         <p>Rejoins-nous chaque vendredi soir pour regarder un film en communauté !</p>
                         <p><strong>Cette semaine:</strong> Film d'action<br><strong>Plateforme:</strong> Discord (salon vocal)<br><strong>Participation:</strong> Gratuite</p>
                         <div><span class="news-tag">Communauté</span><span class="news-tag">Film</span><span class="news-tag">Social</span></div>
-                        <button class="hero-btn" style="margin-top: 1rem; background: linear-gradient(45deg, var(--violet), var(--rose));" onclick="openInscriptionModal()"><i class="fas fa-ticket-alt"></i> S'inscrire</button>
                     </div>
                 </div>
             </div>
@@ -1490,41 +1507,8 @@
         </section>
     </div>
 
-    <!-- MODAL INSCRIPTION -->
-    <div id="modal-inscription" class="modal">
-        <div class="modal-content inscription-modal">
-            <span class="close" onclick="closeModal('modal-inscription')">&times;</span>
-            <div class="modal-header">
-                <h2>🎟️ Inscription à la Soirée</h2>
-                <p class="modal-subtitle">Vendredi soir - ZoneGamer</p>
-            </div>
-            <div class="modal-body">
-                <form id="inscriptionForm">
-                    <div class="form-group">
-                        <label for="discordPseudo"><i class="fab fa-discord"></i> Pseudo Discord *</label>
-                        <input type="text" id="discordPseudo" placeholder="Exemple: Joueur#1234" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="commentaires"><i class="fas fa-comment"></i> Commentaires</label>
-                        <textarea id="commentaires" placeholder="Vos suggestions..."></textarea>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="membreServeur" required>
-                        <label for="membreServeur">Je suis membre du serveur Discord *</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="seraPresent" required>
-                        <label for="seraPresent">Je serai présent *</label>
-                    </div>
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="accepteRegles" required>
-                        <label for="accepteRegles">J'accepte le règlement *</label>
-                    </div>
-                    <button type="submit" class="hero-btn" style="width: 100%; background: linear-gradient(45deg, var(--violet), var(--rose));">Envoyer</button>
-                </form>
-            </div>
-        </div>
-    </div>
+    <!-- MODAL INSCRIPTION (SUPPRIMÉE) -->
+    <!-- La modal inscription a été supprimée -->
 
     <!-- MODAL RECRUTEMENT -->
     <div id="modal-recruitment" class="modal">
@@ -1552,12 +1536,11 @@
         </div>
     </div>
 
-    <!-- ÉQUIPE (sans Laylko et ace) -->
+    <!-- ÉQUIPE -->
     <div id="equipe" class="page">
         <section class="team-page">
             <h2 class="page-title">👥 Notre Équipe</h2>
             
-            <!-- FONDATEURS -->
             <h3 class="role-title fondateurs"><i class="fas fa-crown"></i> Fondateurs</h3>
             <div class="team-grid">
                 <div class="member">
@@ -1572,7 +1555,6 @@
                 </div>
             </div>
             
-            <!-- ADMINISTRATEURS (sans Laylko) -->
             <h3 class="role-title admins"><i class="fas fa-user-shield"></i> Administrateurs</h3>
             <div class="team-grid">
                 <div class="member">
@@ -1587,7 +1569,6 @@
                 </div>
             </div>
             
-            <!-- MODÉRATEURS (sans ace) -->
             <h3 class="role-title modos"><i class="fas fa-user-check"></i> Modérateurs</h3>
             <div class="team-grid">
                 <div class="member">
@@ -1599,7 +1580,7 @@
         </section>
     </div>
 
-    <!-- RÈGLEMENT COMPLET -->
+    <!-- RÈGLEMENT -->
     <div id="reglement" class="page">
         <section class="rules-page">
             <h2 class="rules-title">📜 RÈGLEMENT DU SERVEUR <span>ZoneGamer</span></h2>
@@ -1737,22 +1718,30 @@
             
             <div style="background: rgba(255,255,255,0.05); border-radius: 15px; padding: 2rem;">
                 <p style="text-align: center; margin-bottom: 2rem;">
-                    Une question ? Envoie-nous un email directement !
+                    Une question ? Envoie-nous un message avec ton pseudo Discord !
                 </p>
                 
-                <div style="text-align: center;">
-                    <a href="mailto:zonegamerofficiel@gmail.com?subject=Contact%20depuis%20le%20site" class="hero-btn" style="font-size: 1.2rem; padding: 1rem 2rem;">
-                        <i class="fas fa-envelope"></i> zonegamerofficiel@gmail.com
-                    </a>
+                <div style="max-width: 500px; margin: 0 auto;">
+                    <form action="https://formspree.io/f/mlgprrly" method="POST">
+                        <div class="form-group">
+                            <label for="discord"><i class="fab fa-discord"></i> Pseudo Discord *</label>
+                            <input type="text" id="discord" name="discord" placeholder="Ex: Joueur#1234" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message"><i class="fas fa-comment"></i> Message *</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Votre message..." required></textarea>
+                        </div>
+                        <input type="hidden" name="_subject" value="Nouveau message de ZoneGamer">
+                        <input type="hidden" name="_format" value="plain">
+                        <button type="submit" class="hero-btn" style="width: 100%;">Envoyer le message</button>
+                    </form>
                 </div>
                 
                 <div style="text-align: center; margin-top: 2rem;">
                     <p>Ou rejoins-nous directement sur Discord :</p>
-                    <div style="margin-top: 1rem;">
-                        <a href="https://discord.gg/vfQQGh2k4A" class="hero-btn" style="background: #5865F2;">
-                            <i class="fab fa-discord"></i> Discord
-                        </a>
-                    </div>
+                    <a href="https://discord.gg/vfQQGh2k4A" class="hero-btn" style="background: #5865F2; margin-top: 1rem;">
+                        <i class="fab fa-discord"></i> Discord
+                    </a>
                 </div>
             </div>
         </section>
@@ -1777,12 +1766,12 @@
                 
                 <div style="margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.5rem;">
                     <h3 style="color: var(--primary-red);">📅 Comment participer aux événements ?</h3>
-                    <p style="color: var(--gray-text);">Inscris-toi via le formulaire sur la page "Événements". Les places sont limitées, alors n'hésite pas à t'inscrire rapidement !</p>
+                    <p style="color: var(--gray-text);">Il suffit de te connecter sur Discord le vendredi soir à 21h ! Aucune inscription nécessaire.</p>
                 </div>
                 
                 <div style="margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1.5rem;">
                     <h3 style="color: var(--primary-red);">👑 Comment devenir staff ?</h3>
-                    <p style="color: var(--gray-text);">Contacte un admin sur Discord. Les recrutements sont ouverts régulièrement, surveille les annonces !</p>
+                    <p style="color: var(--gray-text);">Contacte un admin via la page Contact ou sur Discord. Les recrutements sont ouverts régulièrement.</p>
                 </div>
                 
                 <div style="margin-bottom: 2rem;">
@@ -1793,6 +1782,9 @@
         </section>
     </div>
 
+    <!-- PAGE QUIZ (SUPPRIMÉE) -->
+    <!-- La page Quiz a été supprimée -->
+
     <!-- FOOTER -->
     <footer class="footer">
         <div class="footer-content">
@@ -1800,6 +1792,9 @@
                 <img src="Zonegamer.png" alt="ZoneGamer">
                 <h3>ZoneGamer</h3>
                 <p>Communauté E-sport Multiplateforme</p>
+                <div style="font-size: 1.2rem; margin-top: 1rem; color: var(--gold);">
+                    <i class="fas fa-users" style="color: var(--primary-red);"></i> 99 membres
+                </div>
             </div>
             <div class="footer-links">
                 <h4>Navigation</h4>
@@ -1815,38 +1810,25 @@
                 <h4>Nous suivre</h4>
                 <div class="social-icons">
                     <a href="https://discord.gg/vfQQGh2k4A" class="social-icon"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
         </div>
-        <div class="copyright">© 2025 ZoneGamer. Tous droits réservés.</div>
+        <div class="copyright">© 2025 ZoneGamer - 99 membres. Tous droits réservés.</div>
     </footer>
 
     <!-- BACK TO TOP -->
     <div class="back-to-top" id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></div>
     <div class="toast" id="toast"></div>
 
-    <script>
-        // ===== COMPTEUR DE VISITEURS =====
-        function updateVisitorCounter() {
-            let visits = localStorage.getItem('zonegamer_visits');
-            if (visits) {
-                visits = parseInt(visits) + 1;
-            } else {
-                visits = 1;
-            }
-            localStorage.setItem('zonegamer_visits', visits);
-            
-            if (!document.querySelector('.visitor-counter')) {
-                const counterDiv = document.createElement('div');
-                counterDiv.className = 'visitor-counter';
-                counterDiv.innerHTML = `<i class="fas fa-eye"></i> ${visits} visites`;
-                document.body.appendChild(counterDiv);
-            } else {
-                document.querySelector('.visitor-counter').innerHTML = `<i class="fas fa-eye"></i> ${visits} visites`;
-            }
-        }
+    <!-- COMPTEUR DE VISITES (SUPPRIMÉ) -->
 
-        // ===== CITATIONS GAMING (SANS AUTEUR) =====
+    <script>
+        // ===== COMPTEUR DE VISITEURS (SUPPRIMÉ) =====
+
+        // ===== CITATIONS GAMING =====
         const quotes = [
             "Le jeu, c'est sérieux !",
             "Game over ? Non, continue !",
@@ -1879,7 +1861,7 @@
             parallax.style.transform = `translate(${translateX}px, ${translateY}px)`;
         }
 
-        // ===== FONCTIONS EXISTANTES =====
+        // ===== FONCTIONS DE PAGES =====
         function showPage(id) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.getElementById(id).classList.add('active');
@@ -1891,7 +1873,7 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Diaporama
+        // ===== SLIDESHOW =====
         const slides = document.querySelectorAll('.game-slide');
         let current = 0;
         const indicators = document.getElementById('slideIndicators');
@@ -1918,10 +1900,10 @@
             document.querySelectorAll('.slide-indicator')[current].classList.add('active');
         }, 3000);
 
-        // Modals
+        // ===== MODALS =====
         function openInscriptionModal() { 
-            document.getElementById('modal-inscription').style.display = 'block'; 
-            document.body.style.overflow = 'hidden'; 
+            // Cette fonction ne fait plus rien car la modal a été supprimée
+            alert('Inscription directe sur Discord !');
         }
         
         function closeModal(modalId) { 
@@ -1935,7 +1917,7 @@
             document.body.style.overflow = 'auto'; 
         }
 
-        // Menu mobile
+        // ===== MENU MOBILE =====
         const mobileBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
         mobileBtn.addEventListener('click', () => {
@@ -1943,7 +1925,7 @@
             mobileBtn.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
 
-        // Scroll
+        // ===== SCROLL =====
         window.addEventListener('scroll', () => {
             document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
             document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 300);
@@ -1954,7 +1936,7 @@
             window.scrollTo({top: 0, behavior: 'smooth'}); 
         }
 
-        // Toast
+        // ===== TOAST =====
         function showToast(m) { 
             const t = document.getElementById('toast'); 
             t.textContent = m; 
@@ -1962,14 +1944,9 @@
             setTimeout(() => t.classList.remove('show'), 3000); 
         }
 
-        // Formulaire inscription
-        document.getElementById('inscriptionForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const pseudo = document.getElementById('discordPseudo').value;
-            if(!pseudo) { showToast('❌ Pseudo requis'); return; }
-            showToast('🎉 Inscription envoyée !');
-            closeModal('modal-inscription');
-        });
+        // ===== FORMULAIRE INSCRIPTION (SUPPRIMÉ) =====
+
+        // ===== QUIZ (SUPPRIMÉ) =====
 
         // ===== INITIALISATION =====
         window.addEventListener('load', () => {
@@ -1985,10 +1962,8 @@
                         document.getElementById('preloader').style.opacity = '0';
                         setTimeout(() => document.getElementById('preloader').style.display = 'none', 800);
                         
-                        updateVisitorCounter();
                         updateQuote();
                         setInterval(updateQuote, 6000);
-                        // Plus d'appel API
                     }, 500);
                 }
             }, 120);
